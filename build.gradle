@@ -1,0 +1,42 @@
+/*
+ * SPDX-License-Identifier: Apache License 2.0
+ */
+
+plugins {
+    id 'java'
+}
+
+group 'org.hyperledger.fabric-api-javadoc'
+version '1.0-SNAPSHOT'
+
+configurations {
+    hlfJavadoc {
+        transitive false
+    }
+}
+
+dependencies {
+    hlfJavadoc 'org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:1.4.1:sources'
+    hlfJavadoc 'org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.4.1:sources'
+}
+
+repositories {
+    jcenter()
+    maven {
+        url 'https://nexus.hyperledger.org/content/repositories/snapshots/'
+    }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+
+javadoc {
+    source configurations.hlfJavadoc.collect { zipTree(it) }
+    include '/org/hyperledger/fabric/**/*.java'
+    exclude '/org/hyperledger/fabric/protos/**'
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.links 'http://docs.oracle.com/javase/8/docs/api/'
+}
