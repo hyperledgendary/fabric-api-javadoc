@@ -16,6 +16,8 @@ configurations {
 }
 
 dependencies {
+    implementation 'org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:1.4.1'
+    implementation 'org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.4.1'
     hlfJavadoc 'org.hyperledger.fabric-chaincode-java:fabric-chaincode-shim:1.4.1:sources'
     hlfJavadoc 'org.hyperledger.fabric-sdk-java:fabric-sdk-java:1.4.1:sources'
 }
@@ -38,5 +40,7 @@ javadoc {
     include '/org/hyperledger/fabric/**/*.java'
     exclude '/org/hyperledger/fabric/protos/**'
     options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('-add-modules', 'java.se.ee')
+    options.addBooleanOption('html5', true)
     options.links 'http://docs.oracle.com/javase/8/docs/api/'
 }
